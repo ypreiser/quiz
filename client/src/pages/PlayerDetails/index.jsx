@@ -16,7 +16,7 @@ export default function PlayerDetails() {
     // עדכון המידע של המשתמש בחנות
     setUser({ name, avatar });
     joinGame();
-    console.log('New player:', name);
+    // console.log('New player:', name);
 
     // ניווט לדף השאלות
     nav('/quation');

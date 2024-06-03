@@ -25,7 +25,7 @@ export const useUserStore = create((set, get) => {
         }))
     };
 
-    console.log('Initial user store state:', initialState);
+    // console.log('Initial user store state:', initialState);
 
 
    
@@ -40,11 +40,11 @@ export const useUserStore = create((set, get) => {
         }));
         connectToSocket();
         socket.on('connect', () => {
-            console.log('Connected to socket');
+            // console.log('Connected to socket');
             setUser({ socketId: socket.id });
         });
                 
-        console.log("get user:", user);
+        // console.log("get user:", user);
         useGameStore.getState().joinGame(user);
         
     };
@@ -83,7 +83,7 @@ export const useGameStore = create((set, get) => {
         handleGameUpdate: (data) => {
             socket.emit('updatePlayerList', data);
             socket.on('updatePlayerList', (playerList) => {
-                console.log("coming playerList:", playerList);
+                // console.log("coming playerList:", playerList);
                 set(state => ({
                     game: {
                         ...state.game,
@@ -93,11 +93,11 @@ export const useGameStore = create((set, get) => {
             });
         },
         joinGame: (userData) => {
-            console.log('joinGame', userData);
+            // console.log('joinGame', userData);
             socket.emit('joinGame', userData);
             // לאחר שליחת הפרטים של היוזר, בקש את רשימת השחקנים המעודכנת מהשרת
             socket.on('joinGame', (playerList) => {
-                console.log('joinGame', playerList);
+                // console.log('joinGame', playerList);
                 set(state => ({
                     game: {
                         ...state.game,

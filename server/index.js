@@ -12,25 +12,25 @@ const io = new Server(server, { cors: { origin: '*', methods: '*' } });
 const players = []; // רשימה לאחסון כל השחקנים
 
 io.on('connection', (socket) => {
-    console.log('a user connected:', socket.id);
+    // console.log('a user connected:', socket.id);
 
     socket.on('joinGame', (userData) => {
         const newPlayer = { id: socket.id, ...userData };
-        console.log('new player joined:', newPlayer);
+        // console.log('new player joined:', newPlayer);
         socket.join(newPlayer.id);
         players.push(newPlayer);
-        console.log('players:', players);
+        // console.log('players:', players);
         io.emit('joinGame', players);
     });
 
     socket.on('updatePlayerList', (playerList) => {
-        console.log('updatePlayerList', playerList);
+        // console.log('updatePlayerList', playerList);
      
         io.emit('updatePlayerList', playerList);
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected:', socket.id);
+        // console.log('user disconnected:', socket.id);
         const index = players.findIndex(player => player.id === socket.id);
         if (index !== -1) {
             players.splice(index, 1);

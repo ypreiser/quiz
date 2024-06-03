@@ -25,7 +25,8 @@ export default function BoardPage() {
     });
 
     setPlayersOnSquares(tempPlayersOnSquares);
-  }, [players, quations, user]);
+  }, [players]);
+
 
   return (
     <div>

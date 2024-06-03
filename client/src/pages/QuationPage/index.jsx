@@ -17,9 +17,9 @@ export default function QuationPage() {
   const players = useGameStore(state => state.game.players);
   const setGame = useGameStore(state => state.setGame);
   const game = useGameStore(state => state.game);
-  console.log('players:', players);
+  // console.log('players:', players);
 
-  console.log('user:', user);
+  // console.log('user:', user);
 
 
   useEffect(() => {
