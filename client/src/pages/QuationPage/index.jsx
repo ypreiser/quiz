@@ -39,7 +39,7 @@ export default function QuationPage() {
       const newUserQuations = userQuations.filter(q => q.id !== quation.id);
       setUserQuations(newUserQuations);
       const updatedPlayers = players.map(p => {
-        if (p.socketId === user.socketId) {
+        if (p.socketId === user.socketId || p.id === user.socketId) {
           return { ...p, userQuations: newUserQuations };
         }
         return p;

@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     socket.on('updatePlayerList', (playerList) => {
         console.log('updatePlayerList', playerList);
      
-        socket.emit('updatePlayerList', playerList);
+        io.emit('updatePlayerList', playerList);
     });
 
     socket.on('disconnect', () => {
