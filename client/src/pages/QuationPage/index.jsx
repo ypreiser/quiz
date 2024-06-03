@@ -16,6 +16,7 @@ export default function QuationPage() {
   const user = useUserStore(state => state.user);
   const players = useGameStore(state => state.game.players);
   const setGame = useGameStore(state => state.setGame);
+  const game = useGameStore(state => state.game);
   console.log('players:', players);
 
   console.log('user:', user);
@@ -43,8 +44,9 @@ export default function QuationPage() {
         }
         return p;
       });
-      setGame({ players: updatedPlayers });
-      handleGameUpdate(updatedPlayers);
+      console.log({ updatedPlayers });
+      setGame({ game: { ...game, players: updatedPlayers } }); // עדכון הרשימה המקומית
+      handleGameUpdate(updatedPlayers); // שליחת הרשימה המעודכנת לשרת
     } else {
       setQuation(userQuations[randomIndex(userQuations)]);
     }
