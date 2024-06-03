@@ -17,27 +17,36 @@ export const useUserStore = create((set, get) => {
             }))
         },
         quations: initialQuations || [],
+        setUser: (user) => set(state => ({
+            user: {
+                ...state.user,
+                ...user,
+            }
+        }))
     };
 
     console.log('Initial user store state:', initialState);
 
 
-    socket.on('connect', () => {
-        set(state => ({
-            user: {
-                ...state.user,
-                socketId: socket.id,
-            }
-        }));
-        joinGame(); // Joining the game after updating the socketId
-    });
+   
 
     const joinGame = () => {
-        console.log('Joining game...');
         const user = get().user;
+        const setUser = (user) => set(state => ({
+            user: {
+                ...state.user,
+                ...user,
+            }
+        }));
+        connectToSocket();
+        socket.on('connect', () => {
+            console.log('Connected to socket');
+            setUser({ socketId: socket.id });
+        });
+                
         console.log("get user:", user);
         useGameStore.getState().joinGame(user);
-        connectToSocket();
+        
     };
 
     return {
