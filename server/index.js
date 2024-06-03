@@ -16,7 +16,10 @@ io.on('connection', (socket) => {
 
     socket.on('joinGame', (userData) => {
         const newPlayer = { id: socket.id, ...userData };
+        console.log('new player joined:', newPlayer);
+        socket.join(newPlayer.id);
         players.push(newPlayer);
+        console.log('players:', players);
         io.emit('updatePlayerList', players);
     });
 
