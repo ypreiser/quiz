@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserStore } from '../../store';
+import { useUserStore, useGameStore } from '../../store';
 import UserView from '../../components/UserView';
 import style from './style.module.css';
 
 export default function QuationPage() {
+  const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
   const { userQuations, setUserQuations } = useUserStore((state) => ({
     userQuations: state.user.userQuations,
     setUserQuations: state.user.setUserQuations,
@@ -12,8 +13,10 @@ export default function QuationPage() {
 
   const [quation, setQuation] = useState({});
   const [answers, setAnswers] = useState([]);
-  const [isCorrect, setIsCorrect] = useState(false);
   const user = useUserStore(state => state.user);
+  const players = useGameStore(state => state.game.players);
+  const setGame = useGameStore(state => state.setGame);
+  console.log('players:', players);
 
   console.log('user:', user);
 
@@ -32,11 +35,17 @@ export default function QuationPage() {
 
   const checkAnswer = (e) => {
     if (e.target.innerText === quation.answer) {
-      setIsCorrect(true);
       const newUserQuations = userQuations.filter(q => q.id !== quation.id);
       setUserQuations(newUserQuations);
+      const updatedPlayers = players.map(p => {
+        if (p.socketId === user.socketId) {
+          return { ...p, userQuations: newUserQuations };
+        }
+        return p;
+      });
+      setGame({ players: updatedPlayers });
+      handleGameUpdate(updatedPlayers);
     } else {
-      setIsCorrect(false);
       setQuation(userQuations[randomIndex(userQuations)]);
     }
   };
