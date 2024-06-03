@@ -33,7 +33,7 @@ const GameSquare = ({ playersOnSquare }) => {
   return (
     <div style={{ backgroundColor: randomColor() }} className={style.square}>
       {playersOnSquareState.map((player, index) => (
-        <div key={index} >
+        <div className={style.gameSquare} key={index} >
           <UserView name={player.name} avatar={player.avatar}/>   
         </div>
       ))}
