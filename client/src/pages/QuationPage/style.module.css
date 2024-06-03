@@ -1,0 +1,42 @@
+
+
+button {
+    width: 50px;
+    cursor: pointer;
+    font-size: 8px;
+
+}
+
+button:hover {
+    color:rgb(193, 17, 52);
+}
+
+
+.question_container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+display: flex;
+
+}
+
+.story {
+    /* border: #000 1px solid; */
+    border-radius: 15px;
+    padding: 5px;
+    background: #151515;
+    font-size: 15px;
+}
+
+.answer {
+padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 8px;
+}
+
+.answer:hover {
+
+    box-shadow: #191919 2px 2px 2px 2px;
+}

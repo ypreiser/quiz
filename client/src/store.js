@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { socket } from './socket';
-import { quations as initialQuations } from './quations';
+import { socket, connectToSocket } from './socket';
+import { quations as initialQuations, quations } from './quations';
 
 export const useUserStore = create((set, get) => {
     const initialState = {
@@ -8,17 +8,19 @@ export const useUserStore = create((set, get) => {
             name: 'sven',
             avatar: '🦌',
             socketId: '',
+            userQuations: [...(initialQuations || [])],
+            setUserQuations: (userQuations) => set(state => ({
+                user: {
+                    ...state.user,
+                    userQuations,
+                },
+            }))
         },
         quations: initialQuations || [],
-        userQuations: [...(initialQuations || [])],
     };
 
     console.log('Initial user store state:', initialState);
 
-    const joinGame = () => {
-        const user = get().user;
-        useGameStore.getState().joinGame(user);
-    };
 
     socket.on('connect', () => {
         set(state => ({
@@ -27,8 +29,16 @@ export const useUserStore = create((set, get) => {
                 socketId: socket.id,
             }
         }));
-        joinGame(); // הצטרפות למשחק לאחר עדכון ה-socketId
+        joinGame(); // Joining the game after updating the socketId
     });
+    
+    const joinGame = () => {
+        console.log('Joining game...');
+        const user = get().user;
+        console.log("get user:", user);
+        useGameStore.getState().joinGame(user);
+        connectToSocket();
+    };
 
     return {
         ...initialState,
@@ -49,48 +59,51 @@ export const useUserStore = create((set, get) => {
                 }
             }));
             socket.emit('updateUser', data);
-            socket.on('updateUser', (data) => {
-                const game = get().game;
-                game.friends.push(data);
-            });
         },
     };
 });
 
-export const useGameStore = create((set, get) => ({
-    game: {
-        players: [],
-        board: [],
-    },
-    setGame: (game) => set({ game }),
-    handleGameUpdate: (data) => {
-        socket.emit('move', data);
-        socket.on('gameUpdate', (data) => {
-            set(state => ({
-                game: {
-                    ...state.game,
-                    ...data
-                }
-            }));
-        });
-    },
-    joinGame: (userData) => {
-        socket.emit('joinGame', userData);
-        socket.on('updatePlayerList', (playerList) => {
-            set(state => ({
-                game: {
-                    ...state.game,
-                    players: playerList,
-                }
-            }));
-        });
-    },
-    handlePlayerListUpdate: (playerList) => {
-        set(state => ({
-            game: {
-                ...state.game,
-                players: playerList,
-            }
-        }));
-    },
-}));
+export const useGameStore = create((set, get) => {
+    const handlePlayerListUpdate = (playerList) => {
+        // set(state => ({
+        //     game: {
+        //         ...state.game,
+        //         players: playerList,
+        //     }
+        // }));
+    };
+
+
+    return {
+        game: {
+            players: [],
+            board: [],
+        },
+        setGame: (game) => set({ game }),
+        handleGameUpdate: (data) => {
+            socket.emit('move', data);
+            socket.on('gameUpdate', (data) => {
+                set(state => ({
+                    game: {
+                        ...state.game,
+                        ...data
+                    }
+                }));
+            });
+        },
+        joinGame: (userData) => {
+            console.log('joinGame', userData);
+            socket.emit('joinGame', userData);
+            // לאחר שליחת הפרטים של היוזר, בקש את רשימת השחקנים המעודכנת מהשרת
+            socket.on('updatePlayerList', (playerList) => {
+                console.log('updatePlayerList', playerList);
+                // set(state => ({
+                //     game: {
+                //         ...state.game,
+                //         players: playerList,
+                //     }
+                // }));
+            });
+        },
+    };
+});
