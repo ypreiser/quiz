@@ -3,7 +3,7 @@ import style from './style.module.css';
 import { useGameStore } from '../../store';
 import UserView from '../UserView';
 
-const GameSquare = ({ question, playersOnSquare }) => {
+const GameSquare = ({ playersOnSquare }) => {
   const players = useGameStore(state => state.game.players);
   const [playersOnSquareState, setPlayersOnSquareState] = useState([]);
 
@@ -15,6 +15,7 @@ const GameSquare = ({ question, playersOnSquare }) => {
         const player = players.find(p => p.id === playerId);
         return player ? { name: player.name, avatar: player.avatar } : null;
       }).filter(player => player !== null);
+      console.log({playersOnSquare})
       
       setPlayersOnSquareState(updatedPlayers);
     }
