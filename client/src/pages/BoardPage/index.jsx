@@ -7,6 +7,7 @@ import style from './style.module.css';
 export default function BoardPage() {
   const quations = useUserStore(state => state.quations);
   const players = useGameStore(state => state.game.players);
+  const user = useUserStore(state => state.user);
   const [playersOnSquares, setPlayersOnSquares] = useState([]);
   const nav = useNavigate();
 
@@ -24,7 +25,7 @@ export default function BoardPage() {
     });
 
     setPlayersOnSquares(tempPlayersOnSquares);
-  }, [players, quations]);
+  }, [players, quations, user]);
 
   return (
     <div>

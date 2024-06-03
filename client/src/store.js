@@ -31,7 +31,7 @@ export const useUserStore = create((set, get) => {
         }));
         joinGame(); // Joining the game after updating the socketId
     });
-    
+
     const joinGame = () => {
         console.log('Joining game...');
         const user = get().user;
@@ -64,15 +64,6 @@ export const useUserStore = create((set, get) => {
 });
 
 export const useGameStore = create((set, get) => {
-    const handlePlayerListUpdate = (playerList) => {
-        // set(state => ({
-        //     game: {
-        //         ...state.game,
-        //         players: playerList,
-        //     }
-        // }));
-    };
-
 
     return {
         game: {
@@ -81,8 +72,8 @@ export const useGameStore = create((set, get) => {
         },
         setGame: (game) => set({ game }),
         handleGameUpdate: (data) => {
-            socket.emit('move', data);
-            socket.on('gameUpdate', (data) => {
+            socket.emit('updatePlayerList', data);
+            socket.on('updatePlayerList', (data) => {
                 set(state => ({
                     game: {
                         ...state.game,
@@ -95,15 +86,15 @@ export const useGameStore = create((set, get) => {
             console.log('joinGame', userData);
             socket.emit('joinGame', userData);
             // לאחר שליחת הפרטים של היוזר, בקש את רשימת השחקנים המעודכנת מהשרת
-            socket.on('updatePlayerList', (playerList) => {
-                console.log('updatePlayerList', playerList);
-                // set(state => ({
-                //     game: {
-                //         ...state.game,
-                //         players: playerList,
-                //     }
-                // }));
-            });
+            // socket.on('updatePlayerList', (playerList) => {
+            //     console.log('updatePlayerList', playerList);
+            //     set(state => ({
+            //         game: {
+            //             ...state.game,
+            //             players: playerList,
+            //         }
+            //     }));
+            // });
         },
     };
 });
