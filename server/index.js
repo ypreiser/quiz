@@ -20,7 +20,13 @@ io.on('connection', (socket) => {
         socket.join(newPlayer.id);
         players.push(newPlayer);
         console.log('players:', players);
-        io.emit('updatePlayerList', players);
+        io.emit('joinGame', players);
+    });
+
+    socket.on('updatePlayerList', (playerList) => {
+        console.log('updatePlayerList', playerList);
+     
+        socket.emit('updatePlayerList', playerList);
     });
 
     socket.on('disconnect', () => {
