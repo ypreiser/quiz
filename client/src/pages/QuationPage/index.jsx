@@ -1,43 +1,47 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store';
 
 export default function QuationPage() {
-  const quations = useUserStore(state => state.quations)
-  const setQuations = useUserStore(state => state.setQuations);
-
+  const { userQuations, setUserQuations } = useUserStore((state) => ({
+    userQuations: state.userQuations,
+    setUserQuations: state.setUserQuations,
+  }));
+  
   const [quation, setQuation] = useState({});
   const [answers, setAnswers] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
 
   useEffect(() => {
-    if (quations.length > 0) {
-      setQuation(quations[randomIndex()]);
-      setAnswers(quations.map(q => q.answer));
+    if (userQuations.length > 0) {
+      const currentQuation = userQuations[randomIndex(userQuations)];
+      setQuation(currentQuation);
+      setAnswers(userQuations.map(q => q.answer));
     }
-  }, [quations]);
+  }, [userQuations]);
 
-  function randomIndex() {
+  function randomIndex(quations) {
     return Math.floor(Math.random() * quations.length);
   }
 
   const checkAnswer = (e) => {
     if (e.target.innerText === quation.answer) {
       setIsCorrect(true);
-      const newQuations = quations.filter(q => q.id !== quation.id);
-      setQuations(newQuations);
+      const newUserQuations = userQuations.filter(q => q.id !== quation.id);
+      setUserQuations(newUserQuations);
     } else {
       setIsCorrect(false);
-      setQuation(quations[randomIndex()]);
+      setQuation(userQuations[randomIndex(userQuations)]);
     }
   };
+
   const nav = useNavigate();
 
   return (
     <div>
-            <button onClick={()=>nav('/game')}>go see everybody</button>
+      <button onClick={() => nav('/game')}>go see everybody</button>
 
-      {quations.length > 0 ? (
+      {userQuations.length > 0 ? (
         <>
           <div>{quation.story}</div>
           <div>
@@ -51,7 +55,6 @@ export default function QuationPage() {
       ) : (
         <div>No more quations!</div>
       )}
-      {isCorrect && <div>Correct!</div>}
     </div>
   );
 }

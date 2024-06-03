@@ -1,18 +1,21 @@
-import React from 'react'
-  import { useUserStore } from '../../store'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useUserStore } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 export default function PlayerDetails() {
+  const nav = useNavigate();
+  const setUser = useUserStore(state => state.setUser);
 
-  const nav = useNavigate()
-  const handleUserUpdate = useUserStore(state => state.handleUserUpdate)
-  
   const handleNewPlayer = (e) => {
-    e.preventDefault()
-    const name = e.target.name.value
-    // handleUserUpdate({ name: name })
-    nav('/quation')
-  }
+    e.preventDefault();
+    const name = e.target.name.value;
+
+    // עדכון המידע של המשתמש בחנות
+    setUser({ name });
+
+    // ניווט לדף השאלות
+    nav('/quation');
+  };
 
   return (
     <div>
@@ -21,5 +24,5 @@ export default function PlayerDetails() {
         <button type="submit">Add</button>
       </form>
     </div>
-  )
+  );
 }
