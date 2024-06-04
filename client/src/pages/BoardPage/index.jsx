@@ -34,7 +34,7 @@ export default function BoardPage() {
       <div className={style.board}>
         {quations && quations.map((question, index) => (
           <div key={index} className={style.gameSquare}>
-            <GameSquare question={question} playersOnSquare={playersOnSquares[index] || []} />
+            <GameSquare question={index} playersOnSquare={playersOnSquares[index] || []} />
           </div>
         ))}
       </div>

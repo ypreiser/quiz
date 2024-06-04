@@ -3,7 +3,7 @@ import style from './style.module.css';
 import { useGameStore } from '../../store';
 import UserView from '../UserView';
 
-const GameSquare = ({ playersOnSquare }) => {
+const GameSquare = ({ playersOnSquare, question }) => {
   const players = useGameStore(state => state.game.players);
   const [playersOnSquareState, setPlayersOnSquareState] = useState([]);
 
@@ -32,6 +32,7 @@ const GameSquare = ({ playersOnSquare }) => {
 
   return (
     <div style={{ backgroundColor: randomColor() }} className={style.square}>
+      <h2>{question + 1}</h2>
       {playersOnSquareState.map((player, index) => (
         <div className={style.gameSquare} key={index} >
           <UserView name={player.name} avatar={player.avatar}/>   
