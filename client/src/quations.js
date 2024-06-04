@@ -15,7 +15,7 @@ export let quations = [
     id: 3,
   },
   {
-    story: "מרים",
+    story: "ישנה על מזרון על הרצפה",
     answer: "מרים",
     id: 4
   },
@@ -45,12 +45,12 @@ export let quations = [
     id: 9
   },
   {
-    story: "אורנא",
+    story: "עברה דירה 15 פעמים בחיים",
     answer: "אורנא",
     id: 10
   },
   {
-    story: "טל",
+    story: "יש לו תעודת הוראה באנגלית",
     answer: "טל",
     id: 11
   },
@@ -85,7 +85,7 @@ export let quations = [
     id: 17
   },
   {
-    story: "יוסף",
+    story: "השם השני שלו זה חי",
     answer: "יוסף",
     id: 18
   },
@@ -95,7 +95,7 @@ export let quations = [
     id: 19
   },
   {
-    story: "צבי",
+    story: "פעם יזם שבת שטח עם איזה 300 בחורי ישיבות במאחז עז ציון. אפילו הרב דב ליאור הגיע.",
     answer: "צבי",
     id: 20
   },

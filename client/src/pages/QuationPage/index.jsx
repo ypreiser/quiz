@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore, useGameStore } from '../../store';
-import UserView from '../../components/UserView';
 import style from './style.module.css';
+import Story from '../../components/Story';
+import Answer from '../../components/Answer';
 
 export default function QuationPage() {
   const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
@@ -56,16 +57,17 @@ export default function QuationPage() {
 
   return (
     <div className={style.container}>
+      <div className={style.bg}></div>
+      <div className={`${style.bg} ${style.bg2}`}></div>
+      <div className={`${style.bg} ${style.bg3}`}></div>
       <button onClick={() => nav('/game')}>go see everybody</button>
-      <p dir="rtl">         למי זה קרה??
-      </p>
       {userQuations.length > 0 ? (
-        <div className={style['question_container']}>
-          <div className={style.story}>{quation.story}</div>
-          <div>
+        <div>
+          <div className={style.content}><Story story={quation.story} /></div>
+          <div className={style.answers}>
             {answers.map((answer, index) => (
-              <div key={index} className={style.answer} onClick={checkAnswer}>
-                {answer}
+              <div key={index} onClick={checkAnswer}>
+                <Answer answer={answer} />
               </div>
             ))}
           </div>
@@ -73,7 +75,6 @@ export default function QuationPage() {
       ) : (
         <div>No more quations!</div>
       )}
-            <UserView name={user.name} avatar={user.avatar} />
 
     </div>
   );
