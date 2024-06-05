@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Welcome from './pages/Welcome'
 import BoardPage from './pages/BoardPage'
-import QuationPage from './pages/QuationPage'
+import QuestionPage from './pages/QuestionPage'
 import PlayerDetails from './pages/PlayerDetails'
 import { useGameStore, useUserStore } from "./store";
 
@@ -12,7 +12,7 @@ export default function App() {
     {path: '/', element: <Welcome /> },
     { path: '/myname', element: <PlayerDetails /> },
     { path: '/game', element: <BoardPage /> },
-    { path: '/quation', element: <QuationPage /> },
+    { path: '/question', element: <QuestionPage /> },
   ])
 
   const handleGameUpdate = useGameStore(state => state.handleGameUpdate);

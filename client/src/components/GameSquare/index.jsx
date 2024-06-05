@@ -15,7 +15,7 @@ const GameSquare = ({ playersOnSquare, question }) => {
         const player = players.find(p => p.id === playerId);
         return player ? { name: player.name, avatar: player.avatar } : null;
       }).filter(player => player !== null);
-      console.log({playersOnSquare})
+      // console.log({playersOnSquare})
       
       setPlayersOnSquareState(updatedPlayers);
     }
@@ -32,7 +32,6 @@ const GameSquare = ({ playersOnSquare, question }) => {
 
   return (
     <div style={{ backgroundColor: randomColor() }} className={style.square}>
-      <h2>{question + 1}</h2>
       {playersOnSquareState.map((player, index) => (
         <div className={style.gameSquare} key={index} >
           <UserView name={player.name} avatar={player.avatar}/>   

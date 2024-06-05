@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { socket, connectToSocket } from './socket';
-import { quations as initialQuations, quations } from './quations';
+import { questions as initialQuestions, questions } from './questions';
 
 export const useUserStore = create((set, get) => {
     const initialState = {
@@ -8,15 +8,15 @@ export const useUserStore = create((set, get) => {
             name: 'sven',
             avatar: '🦌',
             socketId: '',
-            userQuations: [...(initialQuations || [])],
-            setUserQuations: (userQuations) => set(state => ({
+            userQuestions: [...(initialQuestions || [])],
+            setUserQuestions: (userQuestions) => set(state => ({
                 user: {
                     ...state.user,
-                    userQuations,
+                    userQuestions,
                 },
             }))
         },
-        quations: initialQuations || [],
+        questions: initialQuestions || [],
         setUser: (user) => set(state => ({
             user: {
                 ...state.user,
@@ -58,8 +58,8 @@ export const useUserStore = create((set, get) => {
             }
         })),
         joinGame,
-        setQuations: (quations) => set({ quations }),
-        setUserQuations: (userQuations) => set({ userQuations }),
+        setQuestions: (questions) => set({ questions }),
+        setUserQuestions: (userQuestions) => set({ userQuestions }),
         handleUpdateUser: (data) => {
             set(state => ({
                 user: {
@@ -79,7 +79,24 @@ export const useGameStore = create((set, get) => {
         setWin: (win) => set({ win }),
         game: {
             players: [],
-          
+            winners:[],
+            addWinner:  (winners) => {
+                socket.emit('addWinner', winners);
+                socket.on('addWinner', (winners) => {
+                    set(state => ({
+                        game: {
+                            ...state.game,
+                            winners: winners,
+                        }
+                    }));
+                });
+            },
+            removeWinner: (winnerToRemove) => set((state) => ({
+                game: {
+                    ...state.game,
+                    winners: state.game.winners.filter(winner => winner !== winnerToRemove) // מסנן מנצח
+                }
+            }))          
         },
         setGame: (game) => set({ game }),
         handleGameUpdate: (data) => {
