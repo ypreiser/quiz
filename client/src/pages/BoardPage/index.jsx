@@ -3,12 +3,20 @@ import GameSquare from '../../components/GameSquare';
 import { useNavigate } from 'react-router-dom';
 import { useGameStore, useUserStore } from '../../store';
 import style from './style.module.css';
+<<<<<<< HEAD
+=======
+import Winning from '../../components/Winning';
+>>>>>>> 077bcfdb136ec8636b92e45c32b32451fc80bbc9
 
 export default function BoardPage() {
   const quations = useUserStore(state => state.quations);
   const players = useGameStore(state => state.game.players);
   const user = useUserStore(state => state.user);
   const [playersOnSquares, setPlayersOnSquares] = useState([]);
+<<<<<<< HEAD
+=======
+  const win = useGameStore(state => state.win);
+>>>>>>> 077bcfdb136ec8636b92e45c32b32451fc80bbc9
   const nav = useNavigate();
 
   useEffect(() => {
@@ -38,6 +46,10 @@ export default function BoardPage() {
           </div>
         ))}
       </div>
+<<<<<<< HEAD
+=======
+      {win &&<Winning /> }
+>>>>>>> 077bcfdb136ec8636b92e45c32b32451fc80bbc9
     </div>
   );
 }
