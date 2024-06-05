@@ -1,0 +1,32 @@
+.square{
+    min-width: 77px;
+    max-width: 100px;
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gameSquare {
+
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+  
+  .question {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .players {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .player {
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 3px;
+  }
+  
