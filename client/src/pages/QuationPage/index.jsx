@@ -18,6 +18,7 @@ export default function QuationPage() {
   const players = useGameStore(state => state.game.players);
   const setGame = useGameStore(state => state.setGame);
   const game = useGameStore(state => state.game);
+  const setWin = useGameStore(state => state.setWin);
   // console.log('players:', players);
 
   // console.log('user:', user);
@@ -28,6 +29,9 @@ export default function QuationPage() {
       const currentQuation = userQuations[randomIndex(userQuations)];
       setQuation(currentQuation);
       setAnswers(userQuations.map(q => q.answer));
+    }
+    if (userQuations.length === 0) {
+      setWin(true);
     }
   }, [userQuations]);
 

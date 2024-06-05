@@ -60,7 +60,7 @@ export let quations = [
     id: 12
   },
   {
-    story: "ליאל",
+    story: "בפגישה הרביעית עם בעלה החליטה להתחתן איתו",
     answer: "ליאל",
     id: 13
   },
