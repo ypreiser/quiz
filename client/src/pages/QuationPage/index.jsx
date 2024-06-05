@@ -12,26 +12,21 @@ export default function QuationPage() {
     setUserQuations: state.user.setUserQuations,
   }));
 
-  const [quation, setQuation] = useState({});
+  const [quation, setQuation] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [answerPositions, setAnswerPositions] = useState([]);
   const user = useUserStore(state => state.user);
   const players = useGameStore(state => state.game.players);
   const setGame = useGameStore(state => state.setGame);
   const game = useGameStore(state => state.game);
-  const setWin = useGameStore(state => state.setWin);
-  // console.log('players:', players);
-
-  // console.log('user:', user);
-
 
   useEffect(() => {
     if (userQuations.length > 0) {
       const currentQuation = userQuations[randomIndex(userQuations)];
       setQuation(currentQuation);
-      setAnswers(userQuations.map(q => q.answer));
-    }
-    if (userQuations.length === 0) {
-      setWin(true);
+      const shuffledAnswers = shuffleArray(userQuations.map(q => q.answer));
+      setAnswers(shuffledAnswers);
+      setAnswerPositions(generateRandomPositions(shuffledAnswers.length));
     }
   }, [userQuations]);
 
@@ -39,20 +34,40 @@ export default function QuationPage() {
     return Math.floor(Math.random() * quations.length);
   }
 
-  const checkAnswer = (e) => {
-    if (e.target.innerText === quation.answer) {
+  function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  function generateRandomPositions(count) {
+    const positions = [];
+    const containerWidth = window.innerWidth - 40; // Subtract some padding
+    const containerHeight = window.innerHeight - 40; // Subtract some padding
+    const answerSize = Math.min(containerWidth, containerHeight) / (count + 1); // Dynamically size answers based on count and viewport
+
+    for (let i = 0; i < count; i++) {
+      const top = Math.random() * (containerHeight - answerSize);
+      const left = Math.random() * (containerWidth - answerSize);
+      positions.push({ top, left, size: answerSize });
+    }
+
+    return positions;
+  }
+
+  function checkAnswer(e) {
+    if (quation && quation.answer && e.target.innerText === quation.answer) {
       const newUserQuations = userQuations.filter(q => q.id !== quation.id);
       setUserQuations(newUserQuations);
-      const updatedPlayers = players.map(p => {
-        if (p.socketId === user.socketId || p.id === user.socketId) {
+      const updatedPlayers = (players || []).map(p => {
+        if (user && (p.socketId === user.socketId || p.id === user.socketId)) {
           return { ...p, userQuations: newUserQuations };
         }
         return p;
       });
-      console.log({ updatedPlayers });
-      setGame({ game: { ...game, players: updatedPlayers } }); // עדכון הרשימה המקומית
-      handleGameUpdate(updatedPlayers); // שליחת הרשימה המעודכנת לשרת
-    } else {
+      if (game) {
+        setGame({ game: { ...game, players: updatedPlayers } });
+      }
+      handleGameUpdate(updatedPlayers);
+    } else if (userQuations.length > 0) {
       setQuation(userQuations[randomIndex(userQuations)]);
     }
   };
@@ -66,20 +81,31 @@ export default function QuationPage() {
       <div className={`${style.bg} ${style.bg3}`}></div>
       <button onClick={() => nav('/game')}>go see everybody</button>
       {userQuations.length > 0 ? (
-        <div>
-          <div className={style.content}><Story story={quation.story} /></div>
-          <div className={style.answers}>
+        <div className={style.questionContainer}>
+          <div className={style.storyContainer}>
+            {quation && <Story story={quation.story} />}
+          </div>
+          <div className={style.answersContainer}>
             {answers.map((answer, index) => (
-              <div key={index} onClick={checkAnswer}>
-                <Answer answer={answer} />
-              </div>
+              <span
+                key={index}
+                className={style.answer}
+                style={{
+                  top: `${answerPositions[index].top}px`,
+                  left: `${answerPositions[index].left}px`,
+                  width: `${answerPositions[index].size}px`,
+                  height: `${answerPositions[index].size}px`,
+                }}
+                onClick={checkAnswer}
+              >
+                {answer} 
+              </span>
             ))}
           </div>
         </div>
       ) : (
-        <div>No more quations!</div>
+        <div>No questions available.</div>
       )}
-
     </div>
   );
 }
