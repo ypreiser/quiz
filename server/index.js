@@ -29,6 +29,11 @@ io.on('connection', (socket) => {
         io.emit('updatePlayerList', playerList);
     });
 
+    socket.on('addWinner', (winners)=>{
+        console.log({winners})
+        io.emit ('addWinner', winners)
+    })
+
     socket.on('disconnect', () => {
         // console.log('user disconnected:', socket.id);
         const index = players.findIndex(player => player.id === socket.id);

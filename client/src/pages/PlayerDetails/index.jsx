@@ -21,7 +21,7 @@ export default function PlayerDetails() {
     // console.log('New player:', name);
 
     // ניווט לדף השאלות
-    nav('/quation');
+    nav('/question');
   };
 
   return (

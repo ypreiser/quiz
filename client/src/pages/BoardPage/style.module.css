@@ -1,6 +1,47 @@
-.board{
+.board {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    width: 400px;
+    /* רוחב כולל של הלוח */
+    padding: 50px;
+    /* להציג את הלוח באמצע הדף */
+    gap: 20px;
+    flex-direction: row-reverse;
+}
+
+.gameSquare {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+        border-radius: 50px;
+
+}
+
+.gameSquare {
+    animation: slide-up 0.5s ease-in-out forwards;
+    border-radius: 50px;
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(100px);
+        /* החל ממקום התחלת הנסיעה של ה"קרון" */
+    }
+
+    100% {
+        transform: translateY(0);
+        /* סיום הנסיעה של ה"קרון" למרכז הלוח */
+    }
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    /* כל האלמנטים יוצגו בזרימה כלפי מעלה */
 
 }
