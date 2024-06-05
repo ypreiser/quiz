@@ -75,9 +75,11 @@ export const useUserStore = create((set, get) => {
 export const useGameStore = create((set, get) => {
 
     return {
+        win: false,
+        setWin: (win) => set({ win }),
         game: {
             players: [],
-            board: [],
+          
         },
         setGame: (game) => set({ game }),
         handleGameUpdate: (data) => {
