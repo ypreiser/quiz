@@ -1,0 +1,76 @@
+.container {
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  width: 50px;
+  cursor: pointer;
+  font-size: 8px;
+}
+
+button:hover {
+  color: rgb(193, 17, 52);
+}
+
+.questionContainer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  align-items: center;
+}
+
+.storyContainer {
+  background-color: rgba(255, 255, 255, .8);
+  border-radius: .25em;
+  box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  left: 50%;
+  padding: 10vmin;
+  text-align: center;
+  top: 50%;
+
+}
+
+.answersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  justify-content: end;
+  padding-right: 5rem;
+  padding: 10px;
+  gap: 8px;
+  background-blend-mode: screen;
+  /* border: 5px solid transparent;  */
+  border-image: linear-gradient(260deg, #0000001f, #0000009f, #000000bf) 1;
+}
+
+.answersContainer::before{
+  background: linear-gradient(45deg, #0000001f 0%, #0000009f 80%, #000000bf 100%);
+  z-index: -1;
+}
+
+.who{
+  margin-top: 40px;
+}
+
+
+
+
+@media (max-width: 768px) {}
+
+@media (max-width: 480px) {
+  .answersContainer{
+    width: 62%;
+
+  }
+
+
+  button {
+    width: 40px;
+    font-size: 6px;
+  }
+}

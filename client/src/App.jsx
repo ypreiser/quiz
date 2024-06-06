@@ -5,6 +5,7 @@ import BoardPage from './pages/BoardPage'
 import QuestionPage from './pages/QuestionPage'
 import PlayerDetails from './pages/PlayerDetails'
 import { useGameStore, useUserStore } from "./store";
+import Example from './pages/Example'
 
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     { path: '/myname', element: <PlayerDetails /> },
     { path: '/game', element: <BoardPage /> },
     { path: '/question', element: <QuestionPage /> },
+    {path:'/try', element:<Example/>}
   ])
 
   const handleGameUpdate = useGameStore(state => state.handleGameUpdate);

@@ -1,7 +1,7 @@
 .board {
     display: flex;
     flex-wrap: wrap;
-    width: 400px;
+    /* width: 400px; */
     /* רוחב כולל של הלוח */
     padding: 50px;
     /* להציג את הלוח באמצע הדף */

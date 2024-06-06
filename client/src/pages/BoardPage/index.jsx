@@ -40,11 +40,14 @@ export default function BoardPage() {
   }, [userQuestions])
   return (
     <div className={style.container}>
+            <div className="b"></div>
+      <div className="bg bg2"></div>
+      <div className="bg bg3"></div>
       <button onClick={() => nav('/question')}>Back to Question</button>
       <div className={style.board}>
         {questions && questions.map((question, index) => (
           <div key={index} className={style.gameSquare} style={{ animationDelay: `${index * 0.1}s` }}>
-            <GameSquare question={index} playersOnSquare={playersOnSquares[index] || []} />
+            <GameSquare question={index} arr={playersOnSquares} playersOnSquare={playersOnSquares[index] || []} />
             {index === 0 && <div className={style.train}>👑</div>}
           </div>
         ))}

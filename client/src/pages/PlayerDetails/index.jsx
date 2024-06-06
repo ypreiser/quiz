@@ -26,9 +26,9 @@ export default function PlayerDetails() {
 
   return (
     <div className={style.playerDetails}>
-      <div className={style.bg}></div>
-      <div className={`${style.bg} ${style.bg2}`}></div>
-      <div className={`${style.bg} ${style.bg3}`}></div>
+          <div className="b"></div>
+      <div className="bg bg2"></div>
+      <div className="bg bg3"></div>
       <div className={style.content}>
         <form onSubmit={handleNewPlayer} className={style.contactUs}>
           <input
