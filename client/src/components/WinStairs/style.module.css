@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end; /* כדי ליישר את האלמנטים לתחתית */
+    gap: 5px;
+    margin-top: 40px;
+    perspective: 800px;
+    position: relative; /* מאפשר מיקום מוחלט של אלמנטים בתוך הקונטיינר */
+    height: 200px; /* גובה כללי של הקונטיינר */
+}
+
+.place1, .place2, .place3 {
+    width: 60px;
+    background: #000;
+    position: relative; /* שינוי ממוחלט לרלטיבי */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* מיקוד התוכן לתחתית */
+    color: #fff; /* צבע טקסט */
+    font-weight: bold; /* מודגש */
+    transform-style: preserve-3d;
+    transform: rotateX(15deg) rotateY(-15deg); /* אפקט תלת מימד */
+
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); /* צל למראה תלת מימד */
+    border-radius: 5px; /* עיגול פינות */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* צל טקסט */}
+
+.place3 {
+    height: 50px;
+    background: linear-gradient(45deg, #CD7F32, #D2B48C, #CD7F32); /* גרדיאנט לברונזה */
+}
+
+.place2 {
+    height: 100px;
+    background: linear-gradient(45deg, #C0C0C0, #D3D3D3, #C0C0C0); /* גרדיאנט לכסף */
+}
+
+.place1 {
+    height: 150px;
+    background: linear-gradient(45deg, #FFD700, #FFEC8B, #FFD700); /* גרדיאנט לזהב */
+}
