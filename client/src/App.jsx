@@ -6,13 +6,15 @@ import QuestionPage from './pages/QuestionPage'
 import PlayerDetails from './pages/PlayerDetails'
 import { useGameStore, useUserStore } from "./store";
 import Example from './pages/Example'
+import Race from './pages/Race'
 
 
 export default function App() {
   const router = createBrowserRouter([
     {path: '/', element: <Welcome /> },
     { path: '/myname', element: <PlayerDetails /> },
-    { path: '/game', element: <BoardPage /> },
+    // { path: '/game', element: <BoardPage /> },
+    { path: '/game', element: <Race /> },
     { path: '/question', element: <QuestionPage /> },
     {path:'/try', element:<Example/>}
   ])

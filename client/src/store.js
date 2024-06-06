@@ -81,6 +81,7 @@ export const useGameStore = create((set, get) => {
             players: [],
             winners:[],
             addWinner:  (winners) => {
+                console.log({winners})
                 socket.emit('addWinner', winners);
                 socket.on('addWinner', (winners) => {
                     set(state => ({
