@@ -23,9 +23,9 @@ export default function QuestionPage() {
   const questions = useUserStore(state => state.questions)
   const nav = useNavigate();
   const addWinner = useGameStore(state => state.game.addWinner)
-  const winners = useGameStore(state => state.game.winners)
+  const winners = useGameStore(state => state.game.winners || []);
 
-  console.log({ winners })
+  // console.log({ winners })
 
   useEffect(() => {
     if (userQuestions.length > 0) {
@@ -70,7 +70,7 @@ export default function QuestionPage() {
     if (question && question.answer && e.target.innerText === question.answer) {
       const newUserQuestions = userQuestions.filter(q => q.id !== question.id);
       setUserQuestions(newUserQuestions);
-      nav('/game')
+      // nav('/game')
 
 
 

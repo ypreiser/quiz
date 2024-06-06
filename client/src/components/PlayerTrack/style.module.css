@@ -1,0 +1,13 @@
+.track {
+    position: relative;
+    height: 5px;
+    margin-top: 30px;
+    background-color: #f0f0f0;
+  }
+  
+  .player {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.5s ease-in-out; /* Added transition for animation */
+  }
