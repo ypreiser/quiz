@@ -7,6 +7,7 @@ import Answer from '../../components/Answer';
 
 export default function QuestionPage() {
   const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
+  const handleAddWinner = useGameStore(state => state.handleAddWinner);
   const { userQuestions, setUserQuestions } = useUserStore((state) => ({
     userQuestions: state.user.userQuestions,
     setUserQuestions: state.user.setUserQuestions,
@@ -17,15 +18,12 @@ export default function QuestionPage() {
   const [answerPositions, setAnswerPositions] = useState([]);
   const user = useUserStore(state => state.user);
   const players = useGameStore(state => state.game.players);
-  const setGame = useGameStore(state => state.setGame);
   const game = useGameStore(state => state.game);
   const setWin = useGameStore(state => state.setWin);
   const questions = useUserStore(state => state.questions)
   const nav = useNavigate();
-  const addWinner = useGameStore(state => state.game.addWinner)
-  const winners = useGameStore(state => state.game.winners || []);
 
-  // console.log({ winners })
+  console.log(game.winners)
 
   useEffect(() => {
     if (userQuestions.length > 0) {
@@ -37,6 +35,7 @@ export default function QuestionPage() {
     }
     if (userQuestions.length == 0) {
       setWin(true)
+      nav('/game')
     }
   }, [userQuestions]);
 
@@ -64,30 +63,24 @@ export default function QuestionPage() {
   }
 
   function checkAnswer(e) {
-
     if (question && question.answer && e.target.innerText === question.answer) {
       const newUserQuestions = userQuestions.filter(q => q.id !== question.id);
       setUserQuestions(newUserQuestions);
-      if (userQuestions.length == 1) {
-        const newWinners = [...winners, user]
-        addWinner(newWinners)
+      if (userQuestions.length == 21) {
+       
+        const winnersToUpdate = game.winners ? [...game.winners, user]: [user]
+        console.log(winnersToUpdate);
+        handleAddWinner(winnersToUpdate);
+        setWin(true)
+        nav('/game');
       }
-      // nav('/game')
-
-
-
-
-
-
       const updatedPlayers = (players || []).map(p => {
         if (user && (p.socketId === user.socketId || p.id === user.socketId)) {
           return { ...p, userQuestions: newUserQuestions };
         }
         return p;
       });
-      if (game) {
-        setGame({ game: { ...game, players: updatedPlayers } });
-      }
+
       handleGameUpdate(updatedPlayers);
     } else if (userQuestions.length > 0) {
       setQuestion(userQuestions[randomIndex(userQuestions)]);

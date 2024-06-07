@@ -11,22 +11,23 @@ import Race from './pages/Race'
 
 export default function App() {
   const router = createBrowserRouter([
-    {path: '/', element: <Welcome /> },
+    { path: '/', element: <Welcome /> },
     { path: '/myname', element: <PlayerDetails /> },
     // { path: '/game', element: <BoardPage /> },
     { path: '/game', element: <Race /> },
     { path: '/question', element: <QuestionPage /> },
-    {path:'/try', element:<Example/>}
+    { path: '/try', element: <Example /> }
   ])
 
   const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
   const handleUpdateUser = useUserStore(state => state.handleUpdateUser);
-
+  const handleAddWinner = useGameStore(state => state.handleAddWinner)
 
   useEffect(() => {
     handleGameUpdate();
     handleUpdateUser();
-  }, [handleGameUpdate, handleUpdateUser]);
+    handleAddWinner()
+  }, [handleGameUpdate, handleUpdateUser, handleAddWinner]);
 
   return (
     <RouterProvider router={router} />

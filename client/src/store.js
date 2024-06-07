@@ -26,10 +26,6 @@ export const useUserStore = create((set, get) => {
     };
 
     // console.log('Initial user store state:', initialState);
-
-
-   
-
     const joinGame = () => {
         const user = get().user;
         const setUser = (user) => set(state => ({
@@ -40,13 +36,13 @@ export const useUserStore = create((set, get) => {
         }));
         connectToSocket();
         socket.on('connect', () => {
-            // console.log('Connected to socket');
+            console.log('Connected to socket');
             setUser({ socketId: socket.id });
         });
-                
-        // console.log("get user:", user);
+
+        console.log("get user:", user);
         useGameStore.getState().joinGame(user);
-        
+
     };
 
     return {
@@ -80,34 +76,28 @@ export const useGameStore = create((set, get) => {
         game: {
             players: [],
             winners:[],
-            addWinner:  (winners) => {
-                console.log({winners})
-                socket.emit('addWinner', winners);
-                socket.on('addWinner', (winners) => {
-                    set(state => ({
-                        game: {
-                            ...state.game,
-                            winners: winners,
-                        }
-                    }));
-                });
-            },
-            removeWinner: (winnerToRemove) => set((state) => ({
-                game: {
-                    ...state.game,
-                    winners: state.game.winners.filter(winner => winner !== winnerToRemove) // מסנן מנצח
-                }
-            }))          
         },
         setGame: (game) => set({ game }),
         handleGameUpdate: (data) => {
             socket.emit('updatePlayerList', data);
             socket.on('updatePlayerList', (playerList) => {
-                // console.log("coming playerList:", playerList);
+                console.log("coming playerList:", playerList);
                 set(state => ({
                     game: {
                         ...state.game,
                         players: playerList,
+                    }
+                }));
+            });
+        },
+        handleAddWinner: (data) => {
+            socket.emit('addWinner', data);
+            socket.on('addWinner', (winners) => {
+                console.log("addWinner: ", winners)
+                set(state => ({
+                    game: {
+                        ...state.game,
+                        winners: winners,
                     }
                 }));
             });
@@ -117,7 +107,7 @@ export const useGameStore = create((set, get) => {
             socket.emit('joinGame', userData);
             // לאחר שליחת הפרטים של היוזר, בקש את רשימת השחקנים המעודכנת מהשרת
             socket.on('joinGame', (playerList) => {
-                // console.log('joinGame', playerList);
+                console.log('joinGame', playerList);
                 set(state => ({
                     game: {
                         ...state.game,

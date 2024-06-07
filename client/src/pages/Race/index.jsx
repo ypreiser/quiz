@@ -10,17 +10,7 @@ export default function Race() {
     const players = useGameStore(state => state.game.players);
     const [playersProgress, setPlayersProgress] = useState([]);
     const win = useGameStore(state => state.win);
-    const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
-    const { userQuestions, setUserQuestions } = useUserStore((state) => ({
-        userQuestions: state.user.userQuestions,
-        setUserQuestions: state.user.setUserQuestions,
-    }));
-    const user = useUserStore(state => state.user);
-    const setGame = useGameStore(state => state.setGame);
-    const game = useGameStore(state => state.game);
-    const setWin = useGameStore(state => state.setWin);
-    const addWinner = useGameStore(state => state.game.addWinner)
-    const winners = useGameStore(state => state.game.winners || []);
+      const game = useGameStore(state => state.game);
     const nav = useNavigate();
 
     useEffect(() => {
@@ -42,15 +32,6 @@ export default function Race() {
 
         updatePlayerProgress(players);
     }, [players, questions]);
-
-    useEffect(() => {
-        if (userQuestions.length === 0 && !winners.some(w => w.id === user.id)) {
-            const newWinners = [...winners, user]
-            // console.log({newWinners})
-            setGame({winners:newWinners})
-            setWin(true)
-        }
-    }, []);
 
     return (
         <div className={style.container}>
