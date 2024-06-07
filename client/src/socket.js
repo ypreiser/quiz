@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
-// const URL = 'http://localhost:3000';
-const URL = "https://the-end-of-the-course-1.onrender.com"
+const URL = 'http://localhost:3000';
+// const URL = "https://the-end-of-the-course-1.onrender.com"
 const socket = io(URL, {
   autoConnect: false,
 });
