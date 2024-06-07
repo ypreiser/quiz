@@ -4,10 +4,7 @@
 html, button {
   font-family: "Fredoka", system-ui ,sans-serif;
 }
-body{
-  background-color: #262626;
-  color: #fff;
-}
+
 *{
   padding: 0;
   margin: 0;
@@ -17,9 +14,7 @@ body{
 :root{
   --main-color: #767674;
 }
-ul {
-  list-style: none;
-}
+
 
 a{
   color: inherit;

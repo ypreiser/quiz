@@ -107,6 +107,12 @@ select option:first-child {
 
 }
 
+.error{
+  color: red;
+  position: relative;
+  top: -25px;
+}
+
 
 
   
