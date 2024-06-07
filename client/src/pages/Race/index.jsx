@@ -4,22 +4,23 @@ import { useGameStore, useUserStore } from '../../store';
 import PlayerTrack from '../../components/PlayerTrack';
 import style from './style.module.css';
 import Winning from '../../components/Winning';
-import WinStairs from '../../components/WinStairs';
 
 export default function Race() {
     const questions = useUserStore(state => state.questions);
     const players = useGameStore(state => state.game.players);
     const [playersProgress, setPlayersProgress] = useState([]);
     const win = useGameStore(state => state.win);
-    const winners = useGameStore(state => state.game.winners || []);
-    const user = useUserStore(state => state.user);
-
-    const addWinner = useGameStore(state => state.game.addWinner)
-
-    const { userQuestions } = useUserStore((state) => ({
+    const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
+    const { userQuestions, setUserQuestions } = useUserStore((state) => ({
         userQuestions: state.user.userQuestions,
+        setUserQuestions: state.user.setUserQuestions,
     }));
-
+    const user = useUserStore(state => state.user);
+    const setGame = useGameStore(state => state.setGame);
+    const game = useGameStore(state => state.game);
+    const setWin = useGameStore(state => state.setWin);
+    const addWinner = useGameStore(state => state.game.addWinner)
+    const winners = useGameStore(state => state.game.winners || []);
     const nav = useNavigate();
 
     useEffect(() => {
@@ -40,15 +41,16 @@ export default function Race() {
         };
 
         updatePlayerProgress(players);
-
     }, [players, questions]);
 
     useEffect(() => {
-        if (userQuestions.length === 0) {
-            const newWinners = [...winners, user];
-            addWinner(newWinners);
+        if (userQuestions.length === 0 && !winners.some(w => w.id === user.id)) {
+            const newWinners = [...winners, user]
+            // console.log({newWinners})
+            setGame({winners:newWinners})
+            setWin(true)
         }
-    }, [userQuestions, win, winners, addWinner, user]);
+    }, []);
 
     return (
         <div className={style.container}>
@@ -66,7 +68,6 @@ export default function Race() {
                     />
                 ))}
             </div>
-            <WinStairs />
             {win && <Winning />}
         </div>
     );

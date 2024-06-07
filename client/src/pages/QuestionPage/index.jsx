@@ -37,8 +37,6 @@ export default function QuestionPage() {
     }
     if (userQuestions.length == 0) {
       setWin(true)
-      const newWinners = [...winners, user]
-      addWinner(newWinners)
     }
   }, [userQuestions]);
 
@@ -70,6 +68,10 @@ export default function QuestionPage() {
     if (question && question.answer && e.target.innerText === question.answer) {
       const newUserQuestions = userQuestions.filter(q => q.id !== question.id);
       setUserQuestions(newUserQuestions);
+      if (userQuestions.length == 1) {
+        const newWinners = [...winners, user]
+        addWinner(newWinners)
+      }
       // nav('/game')
 
 

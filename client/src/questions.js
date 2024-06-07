@@ -20,12 +20,12 @@ export let questions = [
     id: 4
   },
   {
-    story: "גילה",
+    story: "לפני שנה וחצי קפצתי על גדר ומפה לשם אין עצבים ולא מרגישה חצי אצבע",
     answer: "גילה",
     id: 5
   },
   {
-    story: "רוני",
+    story: "גרה בחוף הים באוהל צבאי",
     answer: "רוני",
     id: 6
   },
@@ -40,7 +40,7 @@ export let questions = [
     id: 8
   },
   {
-    story: "אלירז",
+    story: "לא אוכלת חצילים וקינמון",
     answer: "אלירז",
     id: 9
   },
@@ -65,7 +65,7 @@ export let questions = [
     id: 13
   },
   {
-    story: "רפאל",
+    story: "לא אוכל פירות וירקות",
     answer: "רפאל",
     id: 14
   },
