@@ -3,7 +3,6 @@ import { useUserStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import style from './style.module.css';
 
-
 export default function PlayerDetails() {
   const nav = useNavigate();
   const setUser = useUserStore(state => state.setUser);
@@ -11,22 +10,28 @@ export default function PlayerDetails() {
 
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('chooseAvatar');
+  const [error, setError] = useState('');
 
   const handleNewPlayer = (e) => {
     e.preventDefault();
 
-    // עדכון המידע של המשתמש בחנות
+    // Check if an avatar has been selected
+    if (avatar === 'chooseAvatar') {
+      setError('Please choose an avatar');
+      return;
+    }
+
+    // Update user information in the store
     setUser({ name, avatar });
     joinGame();
-    // console.log('New player:', name);
 
-    // ניווט לדף השאלות
+    // Navigate to the question page
     nav('/question');
   };
 
   return (
     <div className={style.playerDetails}>
-          <div className="b"></div>
+      <div className="b"></div>
       <div className="bg bg2"></div>
       <div className="bg bg3"></div>
       <div className={style.content}>
@@ -42,7 +47,10 @@ export default function PlayerDetails() {
           <select
             name="Avatar"
             value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
+            onChange={(e) => {
+              setAvatar(e.target.value);
+              setError(''); // Clear error when a new selection is made
+            }}
             required
           >
             <option value="chooseAvatar" disabled>Choose an avatar</option>
@@ -62,6 +70,7 @@ export default function PlayerDetails() {
             <option value="🐯">🐯</option>
             <option value="🐮">🐮 </option>
           </select>
+          {error && <div className={style.error}>{error}</div>}
           <button type="submit">Add</button>
         </form>
       </div>
