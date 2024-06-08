@@ -76,6 +76,7 @@ export const useGameStore = create((set, get) => {
         game: {
             players: [],
             winners:[],
+            start: false,
         },
         setGame: (game) => set({ game }),
         handleGameUpdate: (data) => {
@@ -86,6 +87,7 @@ export const useGameStore = create((set, get) => {
                     game: {
                         ...state.game,
                         players: playerList,
+                        start: true,
                     }
                 }));
             });
@@ -112,6 +114,7 @@ export const useGameStore = create((set, get) => {
                     game: {
                         ...state.game,
                         players: playerList,
+                        start: true,
                     }
                 }));
             });

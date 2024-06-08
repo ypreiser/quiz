@@ -4,6 +4,7 @@ import { useUserStore, useGameStore } from '../../store';
 import style from './style.module.css';
 import Story from '../../components/Story';
 import Answer from '../../components/Answer';
+import Waiting from '../../components/Waiting';
 
 export default function QuestionPage() {
   const handleGameUpdate = useGameStore(state => state.handleGameUpdate);
@@ -66,7 +67,7 @@ export default function QuestionPage() {
     if (question && question.answer && e.target.innerText === question.answer) {
       const newUserQuestions = userQuestions.filter(q => q.id !== question.id);
       setUserQuestions(newUserQuestions);
-      if (userQuestions.length == 21) {
+      if (userQuestions.length == 1) {
        
         const winnersToUpdate = game.winners ? [...game.winners, user]: [user]
         console.log(winnersToUpdate);
@@ -99,6 +100,7 @@ export default function QuestionPage() {
       <div className="b"></div>
       <div className="bg bg2"></div>
       <div className="bg bg3"></div>
+      {!game.start&& <Waiting/>}
       <button onClick={() => nav('/game')}>go see everybody</button>
       {userQuestions.length > 0 ? (
         <div className={style.questionContainer}>
@@ -126,7 +128,7 @@ export default function QuestionPage() {
           </div>
         </div>
       ) : (
-        <button onClick={handleStartAgain}>לענות כל הכל מחדש?</button >
+        <button className={style.again} onClick={handleStartAgain}>לענות כל הכל מחדש?</button >
       )}
     </div>
   );
