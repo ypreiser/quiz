@@ -55,7 +55,7 @@ export let questions = [
     id: 11
   },
   {
-    story: "שקד",
+    story: "לא הסכימה לגלות שום פרט על החיים שלה",
     answer: "שקד",
     id: 12
   },
@@ -75,12 +75,12 @@ export let questions = [
     id: 15
   },
   {
-    story: "חותם",
+    story: "טסה להודו",
     answer: "חותם",
     id: 16
   },
   {
-    story: "הדסה",
+    story: "שם המשפחה שלה אטינגר",
     answer: "הדסה",
     id: 17
   },
@@ -90,7 +90,7 @@ export let questions = [
     id: 18
   },
   {
-    story: "מתנאל",
+    story: "כותב רקורסיות פצצה",
     answer: "מתנאל",
     id: 19
   },
@@ -104,4 +104,10 @@ export let questions = [
     answer: "אביעד",
     id: 21
   },
+  {
+    story:"הכי הרבה ילדים מכל שאר חברי הכיתה" ,
+    answer: "קובי",
+    id: 21
+  }
+
 ];
